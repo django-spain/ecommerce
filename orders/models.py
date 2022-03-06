@@ -46,6 +46,13 @@ class Order(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     
     
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+    
+    def full_address(self):
+        return f'{self.addres_line_1} {self.addres_line_2}'
+    
+    
     def __str__(self):
         return self.first_name
     
