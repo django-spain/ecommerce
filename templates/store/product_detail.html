@@ -82,10 +82,41 @@
                 <div class="col-md-9">
     
         <header class="section-heading">
-            <h3>Customer Reviews </h3>  
+            <h3>Calificación de clientes </h3>  
             
         </header>
-    
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <h5>Escribe tu comentario</h5>
+            <div class="">
+                <label for="">Cómo calificarias este producto</label>
+                <br>
+                <div class="rate">
+                    <input type="radio" name="rating" value="5" id="rating10"><label for="rating10" title="5"></label>
+                    <input type="radio" name="rating" value="4.5" id="rating9"><label for="rating9" class="half" title="4.5"></label>
+                    <input type="radio" name="rating" value="4" id="rating8"><label for="rating8" title="4"></label>
+                    <input type="radio" name="rating" value="3.5" id="rating7"><label for="rating7" class="half" title="3.5"></label>
+                    <input type="radio" name="rating" value="3" id="rating6"><label for="rating6" title="3"></label>
+                    <input type="radio" name="rating" value="2.5" id="rating5"><label for="rating5" class="half" title="2.5"></label>
+                    <input type="radio" name="rating" value="2" id="rating4"><label for="rating4" title="2"></label>
+                    <input type="radio" name="rating" value="1.5" id="rating3"><label for="rating3" class="half" title="1.5"></label>
+                    <input type="radio" name="rating" value="1" id="rating2"><label for="rating2" title="1"></label>
+                    <input type="radio" name="rating" value="0.5" id="rating1"><label for="rating1" class="half" title="0.5"></label>
+                </div> 
+                Titulo de Comentario:
+                <input type="text" class="form-control" name="subject" value=""> 
+                <br>
+                Comentario
+                <textarea name="comentario"  class="form-control" rows="4"></textarea>
+                <br> 
+
+                <input type="submit" value="Enviar Comentario" class="btn btn-primary">
+            </div>    
+        </form>    
+
+        <br> 
+
         <article class="box mb-3">
             <div class="icontext w-100">
                 <img src="./images/avatars/avatar1.jpg" class="img-xs icon rounded-circle">
