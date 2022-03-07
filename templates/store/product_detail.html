@@ -82,15 +82,14 @@
                 <div class="col-md-9">
     
         <header class="section-heading">
-            <h3>Calificación de clientes </h3>  
-            
+            <h3>Calificación de clientes </h3>
         </header>
 
-        <form action="" method="post">
+        <form action="{% url 'submit_review' single_product.id %}" method="post">
             {% csrf_token %}
             <h5>Escribe tu comentario</h5>
             <div class="">
-                <label for="">Cómo calificarias este producto</label>
+                <label for="">Cómo calificarias este producto?</label>
                 <br>
                 <div class="rate">
                     <input type="radio" name="rating" value="5" id="rating10"><label for="rating10" title="5"></label>
@@ -109,32 +108,54 @@
                 <input type="text" class="form-control" name="subject" value=""> 
                 <br>
                 Comentario
-                <textarea name="comentario"  class="form-control" rows="4"></textarea>
-                <br> 
-
-                <input type="submit" value="Enviar Comentario" class="btn btn-primary">
-            </div>    
+                <textarea name="review"  class="form-control" rows="4"></textarea>
+                <br>
+                {% if user.is_authenticated %}
+                    {% if orderproduct  %}
+                        <input type="submit" value="Enviar Comentario" class="btn btn-primary">
+                    {% else %}
+                    <p>Debe primero comprar el producto para comentar</p>
+                    {% endif %}
+                {%  else %}
+                    <p>Para comentar tienes que estar registrado <span><a href="{% url 'login' %}">Inicia Sesion</a></span> </p>
+                {%  endif %}
+            </div>
+            
+            {% include 'includes/alert.html'  %}
         </form>    
 
         <br> 
 
+        {%  for review in reviews %}
         <article class="box mb-3">
             <div class="icontext w-100">
-                <img src="./images/avatars/avatar1.jpg" class="img-xs icon rounded-circle">
+                {% comment %} <img src="./images/avatars/avatar1.jpg" class="img-xs icon rounded-circle"> {% endcomment %}
                 <div class="text">
-                    <span class="date text-muted float-md-right">24.04.2020 </span>  
-                    <h6 class="mb-1">Mike John </h6>
+                    <span class="date text-muted float-md-right">{{ review.update_at }}</span>  
+                    <h6 class="mb-1">{{ review.user.full_name }} </h6>
+                    
+                    <div class="rating-star">
+                          <span>
+                                <i class="fa yellow fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1  %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2  %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3  %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4  %}-o {% endif %}" aria-hidden="true"></i>
+                                <i class="fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5  %}-o {% endif %}" aria-hidden="true"></i>
+                                <span>{{review.rating }}</span>
+                            </span>    
+                    </div>
+                    
                     
                 </div>
             </div> <!-- icontext.// -->
             <div class="mt-3">
+                <h6>{{ review.subject }}</h6>
                 <p>
-                    Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    {{ review.review }}
                 </p>	
             </div>
         </article>
+        {% endfor %}
     
         
     
