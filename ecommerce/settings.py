@@ -32,6 +32,7 @@ DEBUG = config('DEBUG', cast=bool, default=True)
 
 # Application definition
 
+ALLOWED_HOSTS =  ['localhost','ecommerce-env.eba-mpnrkykc.us-west-2.elasticbeanstalk.com']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
